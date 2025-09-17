@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Primary Meta -->
+  <meta charset="utf-8" />
+  <title>Verbasizer – Bowie-Style Cut-Up Text and Lyric Generator (POS Routing, Multi-Source, In-Browser)</title>
+  <meta name="description" content="Generate Bowie-style cut-up lyrics and writing prompts with a modern Verbasizer. Multi-source text, verbs-from-A & nouns-from-B routing, big block output — all private, in your browser." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="verbasizer, bowie, cut up, lyric generator, writing prompt, creative writing tool, text cutup" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#0e0f12" />
+
+  <!-- Canonical (EDIT to your deployed URL) -->
+  <link rel="canonical" href="https://verbasizer.online" />
+
+  <!-- Favicons / Manifest (EDIT paths if you have them) -->
+  <link rel="icon" href="/images/verbasizer1.png" sizes="any" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/images/verbasizer1.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Social Cards (EDIT: site name, image URLs, and page URL) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Verbasizer – Bowie-Style Cut-Up Lyric Generator" />
+  <meta property="og:description" content="A modern Verbasizer: cut-up text tool with POS routing, multi-source uploads, and big-block output. 100% client-side." />
+  <meta property="og:url" content="https://verbasizer.online" />
+  <meta property="og:site_name" content="Verbasizer" />
+  <meta property="og:image" content="https://verbasizer.online/images/og-image-verbasizer.png" />
+  <meta property="og:image:alt" content="Screenshot of the Verbasizer cut-up lyric generator." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Verbasizer – Bowie-Style Cut-Up Text and Lyric Generator" />
+  <meta name="twitter:description" content="Cut-up text generator with verbs-from-A, nouns-from-B routing. Private and fast." />
+  <meta name="twitter:image" content="https://verbasizer.online/images/og-image-verbasizer.png" />
+
+  <!-- Hints -->
+  <link rel="preconnect" href="https://verbasizer.online" crossorigin />
+  <meta name="generator" content="Hand-rolled JS" />
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Verbasizer",
+    "applicationCategory": "MultimediaApplication",
+    "about": "Cut-up text generator inspired by David Bowie’s Verbasizer, with POS routing (verbs from A, nouns from B), multi-source uploads, and big block output.",
+    "operatingSystem": "Web",
+    "browserRequirements": "Requires a modern browser with JavaScript enabled. All processing is client-side.",
+    "url": "https://verbasizer.online",
+    "inLanguage": "en",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage (unchanged from before, still valid) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Is this Verbasizer private?",
+      "acceptedAnswer": {"@type":"Answer","text":"Yes. It runs entirely in your browser. Files are read locally via FileReader; nothing is uploaded."}
+    },{
+      "@type": "Question",
+      "name": "What does POS routing mean?",
+      "acceptedAnswer": {"@type":"Answer","text":"You can choose which parts of speech come from each source: nouns from one text, verbs from another, adjectives from a third, and so on."}
+    },{
+      "@type": "Question",
+      "name": "Can I export results?",
+      "acceptedAnswer": {"@type":"Answer","text":"Yes. Use Copy buttons or save the big block / lines to .txt files via your browser."}
+    }]
+  }
+  </script>
+
+  <!-- NEW: Structured Data: HowTo (step-by-step) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to generate cut-up text with the Verbasizer",
+    "description": "Use the in-browser Verbasizer to combine multiple texts, route parts of speech, and output lines or a big block.",
+    "totalTime": "PT1M",
+    "supply": [{"@type":"HowToSupply","name":"Your text sources or .txt files"}],
+    "tool": [{"@type":"HowToTool","name":"Web browser"}],
+    "step": [
+      {"@type":"HowToStep","name":"Add sources","text":"Click + Add source. Paste text or upload a local file."},
+      {"@type":"HowToStep","name":"Choose parts of speech","text":"For each source, select which parts of speech it contributes (e.g., nouns from B, verbs from A). Adjust weights if desired."},
+      {"@type":"HowToStep","name":"Set options","text":"Pick number of lines, seed (optional), temperature, and phrase mining."},
+      {"@type":"HowToStep","name":"Generate","text":"Click Generate to create sentence lines and a big-block output."},
+      {"@type":"HowToStep","name":"Copy or export","text":"Use Copy Lines / Copy Block or save as text. Optionally, generate an OG image for social sharing."}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Verbasizer",
+  "applicationCategory": "CreativeTool",
+  "operatingSystem": "Web",
+  "description": "The Verbasizer is a creative text-generation tool inspired by the cut-up methods of William S. Burroughs and later used by David Bowie. It takes source text, splits it into parts of speech, and remixes the fragments into new sentences or blocks of text. This modern implementation runs entirely in the browser, with no ads or servers required.",
+  "creator": {
+    "@type": "Person",
+    "name": "David Bowie",
+    "description": "British musician who popularized the digital Verbasizer tool in the 1990s, originally developed with programmer Ty Roberts."
+  },
+  "contributor": {
+    "@type": "Person",
+    "name": "William S. Burroughs",
+    "description": "American writer who pioneered the cut-up technique in the 1950s–60s."
+  },
+  "keywords": [
+    "Verbasizer",
+    "cut-up technique",
+    "David Bowie",
+    "William Burroughs",
+    "text generator",
+    "creative writing",
+    "lyric generator",
+    "poetry tool"
+  ],
+  "featureList": [
+    "Multiple input sources (paste, upload)",
+    "Parts-of-speech routing (nouns, verbs, adjectives)",
+    "Output as lines or big block text",
+    "Copy and download options",
+    "Runs locally in the browser"
+  ],
+  "url": "https://verbasizer.online"
+}
+</script>
+
+  <style>
+    :root { --bg:#0e0f12; --panel:#171922; --ink:#e7e9ee; --muted:#a7acb8; --accent:#8bb4ff; --border:#2a2e3a; }
+    * { box-sizing: border-box; }
+    body { margin:0; font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--ink); background:linear-gradient(180deg,#0b0c10,#12141b 60%,#0b0c10); }
+    header { padding:22px 18px; border-bottom:1px solid var(--border); background:rgba(0,0,0,.3); position:sticky; top:0; backdrop-filter:saturate(160%) blur(6px); }
+    header h1 { margin:0; font-size:20px; letter-spacing:.2px; }
+    nav[aria-label="breadcrumbs"] { font-size:13px; color:var(--muted); padding:6px 18px 0; }
+    nav a { color:var(--muted); text-decoration:none; }
+    .header-actions { margin-left:auto; display:flex; gap:8px; }
+    main { max-width:1200px; margin:18px auto 64px; padding:0 18px; display:grid; gap:18px; }
+    .cols { display:grid; gap:18px; grid-template-columns:1.1fr .9fr; align-items:start; }
+    @media (max-width: 1023px) { .cols { grid-template-columns:1fr; } }
+
+    /* LEFT COLUMN STACK PACKS TO TOP */
+    .stack { display:grid; gap:18px; align-content:start; grid-auto-rows:min-content; }
+
+    .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; }
+    .card h2 { margin:.2rem 0 .8rem; font-size:16px; color:var(--muted); font-weight:600; }
+
+    .src { border:1px dashed var(--border); border-radius:12px; padding:12px; margin:12px 0; background:#10131a; }
+    .src-head { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+    .src-head input[type="text"] { flex:1; padding:8px 10px; border-radius:10px; border:1px solid var(--border); background:#0f1117; color:var(--ink); }
+
+    /* TEXTAREA: FIXED HEIGHT SO INPUTS DON’T GROW THE COLUMN */
+    .src textarea {
+      width:100%; height:180px; min-height:180px; max-height:180px; resize:vertical;
+      background:#0f1117; color:var(--ink); border:1px solid var(--border); border-radius:10px; padding:10px;
+    }
+
+    .src .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px; }
+    .pill { background:#0f1117; border:1px solid var(--border); padding:6px 8px; border-radius:999px; font-size:12px; color:var(--muted); display:flex; gap:8px; align-items:center; }
+    input[type="range"] { width:140px; }
+    button { appearance:none; border:1px solid var(--border); background:#0f1117; color:var(--ink); padding:9px 12px; border-radius:10px; font-weight:600; cursor:pointer; }
+    button:hover { border-color:#3b82f6; background:#111421; }
+    .danger { border-color:#4b2a2a; }
+    .danger:hover { border-color:#d16060; background:#2a1414; }
+    .primary { background:#1c253a; border-color:#365089; }
+    .primary:hover { background:#223052; border-color:#4a6bb0; }
+
+    textarea, input[type="number"], input[type="text"] { font:inherit; outline:none; transition:border .15s ease; }
+    textarea:focus, input:focus { border-color:#3b82f6; }
+    .row3 { display:grid; gap:10px; grid-template-columns:repeat(3,1fr); margin-top:10px; }
+    .controls { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:10px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    .muted { color:var(--muted); }
+    .pos { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .pos label { display:flex; gap:6px; align-items:center; font-size:12px; color:var(--muted); padding:3px 8px; border:1px solid var(--border); border-radius:999px; background:#0f1117; }
+
+    /* OUTPUTS */
+    ol { margin:0; padding-left:1.25rem; }
+    .line { padding:10px 12px; border-radius:8px; border:1px dashed var(--border); margin:.35rem 0; background:#10131a; }
+    .block { white-space:pre-wrap; border:1px dashed var(--border); background:#10131a; padding:12px; border-radius:8px; min-height:120px; }
+    .panel-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+
+    /* SEO Content Blocks */
+    .seo { display:grid; gap:18px; margin-top:18px; }
+    .seo section { background:#10131a; border:1px dashed var(--border); border-radius:12px; padding:14px; }
+    .seo h2 { margin:0 0 8px; font-size:16px; color:var(--muted); }
+    .seo p { margin:.3rem 0; }
+    .toc { font-size:14px; }
+    .toc a { color:var(--accent); text-decoration:none; }
+    [id] {
+      scroll-margin-top: 180px; /* or your header height */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="images/verbasizer1.png" alt="Verbasizer Logo" style="height:96px;vertical-align:middle;margin-right:12px;">
+    <h1>Verbasizer – Bowie-Style Cut-Up Text and Lyric Generator</h1>
+    <nav class="toc" aria-label="On-page navigation">
+      <a href="#app">App</a> · <a href="#what-is">What this is</a> · <a href="#how-to">How to use</a> · <a href="#features">Features</a> · <a href="#privacy">Privacy</a> · <a href="#faq">FAQ</a> · <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main id="app">
+    <section class="cols" aria-label="Verbasizer app layout">
+      <!-- LEFT COLUMN: Inputs (top) + Big Block (bottom) -->
+    <div class="stack">
+        <div class="card" id="sourcesCard" aria-labelledby="sources-heading">
+          <h2 id="sources-heading">Sources & Controls</h2>
+          <p class="muted" id="sources-help">Add one or more texts, upload files (local only), and choose which parts of speech each source contributes.</p>
+        <div id="sources"></div>
+          <div class="controls" role="group" aria-label="Source actions">
+            <button id="addSource" class="primary" aria-label="Add another source">+ Add source</button>
+            <span class="muted">POS routing = nouns/verbs/adjectives/phrases per source.</span>
+        </div>
+
+          <div class="row3" aria-label="Generation parameters">
+            <label class="pill" for="lines">Lines
+            <input type="number" id="lines" min="1" max="200" value="16" />
+          </label>
+            <label class="pill" for="seed">Seed
+            <input type="text" id="seed" placeholder="(optional)" />
+          </label>
+            <label class="pill" for="temp">Temperature (0.5–2.0)
+            <input type="number" id="temp" step="0.1" min="0.5" max="2.0" value="1.0" />
+          </label>
+        </div>
+
+        <div class="controls">
+          <label class="pill"><input type="checkbox" id="phrases" checked /> mine noun–noun & adj–noun phrases</label>
+          <label class="pill"><input type="checkbox" id="capitalize" checked /> capitalize first letter</label>
+          <div style="flex:1"></div>
+            <button class="primary" id="generate" aria-label="Generate cut-ups">Generate</button>
+          </div>
+        </div>
+
+        <div class="card" aria-labelledby="block-heading">
+          <div class="panel-head">
+            <h2 id="block-heading" style="margin:0">Big Block Output</h2>
+            <button id="copyBlock" aria-label="Copy big block to clipboard">Copy Block</button>
+          </div>
+          <div id="outBlock" class="mono block" role="region" aria-live="polite">(no block yet)</div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Lines -->
+      <div class="card" aria-labelledby="lines-heading">
+        <div class="panel-head">
+          <h2 id="lines-heading" style="margin:0">Sentence Lines</h2>
+          <button id="copyLines" aria-label="Copy lines to clipboard">Copy Lines</button>
+        </div>
+        <div id="outBlock" class="mono block">(no block yet)</div>
+      </div>
+    </div>
+
+    <!-- SEO copy (indexable) -->
+    <div class="seo" id="what-is">
+      <section>
+        <h2>What is this Verbasizer?</h2>
+        <p>This is a modern, browser-based take on the classic Verbasizer cut-up technique popularized by David Bowie. Paste or upload text, route parts of speech per source (e.g., <em>verbs from A, nouns from B</em>), and instantly generate evocative lyric lines or a single big-block stream.</p>
+      </section>
+
+      <section id="how-to">
+        <h2>How to use the Verbasizer</h2>
+        <p>1) Add sources (paste text or upload .txt/.md/etc.). 2) Choose which parts of speech each source contributes. 3) Set the number of lines, temperature, and seed. 4) Click Generate. Use the Copy buttons to export lines or the big block. 5) Use Generate OG Image to make a social card.</p>
+      </section>
+
+      <section id="features">
+        <h2>Key Features</h2>
+        <ul>
+          <li>POS routing: nouns/verbs/adjectives/phrases per source</li>
+          <li>Multi-source mixing with adjustable weights</li>
+          <li>Lines <em>and</em> big-block output modes</li>
+          <li>100% client-side: fast, private, no account required</li>
+          <li>Copy & export to .txt via your browser</li>
+          <li>OG image generator for share-ready previews</li>
+        </ul>
+      </section>
+
+      <section id="privacy">
+        <h2>Privacy-first</h2>
+        <p>Everything runs locally in your browser. Files are read with FileReader and never uploaded. You can disconnect from the internet and it will still work.</p>
+      </section>
+
+      <section id="faq">
+        <h2>FAQ</h2>
+        <p><strong>Is it private?</strong> Yes. No servers, no tracking — your text stays on your device.</p>
+        <p><strong>What browsers are supported?</strong> Any modern browser with JavaScript and Clipboard API support. If clipboard access is blocked, use the Download buttons.</p>
+        <p><strong>Can I force stricter grammar?</strong> You can lower temperature or I can add a stricter template mode on request.</p>
+      </section>
+      
+      <section id="about">
+        <h2>About the Verbasizer</h2>
+
+        <p>
+          The <strong>Verbasizer</strong> is a creative text-generation tool inspired by the
+          <em>cut-up</em> methods of writer William S. Burroughs and later used by musician David Bowie.
+          It takes source text, splits it into parts of speech, and remixes the fragments into new
+          sentences or blocks of text. This modern implementation runs entirely in the browser, with no
+          ads or servers required.
+        </p>
+
+        <h3>Origins</h3>
+        <ul>
+          <li><strong>William S. Burroughs</strong> (1950s–60s): pioneered the cut-up technique by physically cutting and rearranging printed text.</li>
+          <li><strong>David Bowie</strong> (1990s): popularized a digital version of the process with programmer Ty Roberts, creating the first computer-based Verbasizer in 1994.</li>
+        </ul>
+
+        <h3>Features</h3>
+        <ul>
+          <li>Multiple input sources (paste, upload)</li>
+          <li>Parts-of-speech routing (nouns, verbs, adjectives)</li>
+          <li>Output as lines or as big block text</li>
+          <li>Copy and download options</li>
+          <li>Runs locally in the browser</li>
+        </ul>
+
+        <h3>Why it matters</h3>
+        <p>
+          The Verbasizer is not meant to replace writing but to unlock creativity. By breaking apart and
+          recombining language, it reveals surprising connections and sparks new ideas. Writers, musicians,
+          and artists can use it as a playful tool to explore fresh directions.
+        </p>
+      </section>
+
+    </div>
+  </section>
+</main>
+
+  <noscript>
+    <p style="max-width: 740px; margin: 12px auto; padding: 12px; background: #171922; color:#e7e9ee; border:1px solid #2a2e3a; border-radius:8px;">
+      This Verbasizer runs entirely in your browser, but it requires JavaScript. Enable JavaScript to generate cut-ups.
+    </p>
+  </noscript>
+
+  <script defer>
+/* ---------- Seedable RNG ---------- */
+function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+function strToSeed(str){if(!str)return null;let h=2166136261>>>0;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+
+/* ---------- Language resources ---------- */
+const STOPWORDS=new Set(`a an and the or but if then than with without within into onto from by for to of on in at as about over under between after before during is are was were be been being do does did doing have has had having not no nor so yet very more most much many few each some any all this that these those i you he she it we they me him her us them my your his her its our their mine yours hers ours theirs`.split(/\s+/));
+const COMMON_VERBS=new Set(`be have do say get make go know take see come think look want give use find tell ask work seem feel try leave call put keep let begin help talk turn start show hear play run move like live believe hold bring write sit stand lose pay meet include continue set learn change lead understand watch follow stop create speak read allow add spend grow open walk win offer remember love consider appear buy wait serve die send expect build stay fall cut reach kill remain`.split(/\s+/));
+const COMMON_ADJECTIVES=new Set(`new good great last long little own other old right big high different small large next early young important few public bad same able real best free true full special clear sure common whole major strong simple hard private likely short single necessary available`.split(/\s+/));
+const DETERMINERS=["the","a","this","that","these","those","my","your","our","their","his","her","its","some","no","any"];
+const PREPOSITIONS=["in","on","under","over","inside","outside","within","without","behind","before","after","through","across","between","beyond"];
+const CONJUNCTIONS=["and","but","or","yet","so"];
+const PRONOUNS=["I","you","he","she","we","they","it"];
+const PUNCT_END=".!?";
+const WORD_RE=/[A-Za-z']+(?:-[A-Za-z']+)?/g;
+
+/* ---------- Tokenization & POS ---------- */
+function tokenize(text){const arr=(text||"").toLowerCase().match(WORD_RE);return arr?arr:[];}
+function guessPOS(w){
+  if(STOPWORDS.has(w))return"stop";
+  if(COMMON_VERBS.has(w)||/(ing|ed|en|ify|ise|ize)$/.test(w))return"verb";
+  if(COMMON_ADJECTIVES.has(w)||/(ous|ive|ful|less|able|ible|al|ic|ish|ary|ory|ant|ent)$/.test(w))return"adj";
+  if(/(tion|sion|ment|ness|hood|ship|ism|ist|ity|age|ery|ure|ance|ence)$/.test(w))return"noun";
+  if(w.length<=2)return"stop";
+  if(w.endsWith("s")&&!w.endsWith("ss"))return"noun";
+  return"noun";
+}
+function extractPhrases(words){
+  const phrases=[];
+  for(let i=0;i<words.length-1;i++){
+    const a=words[i],b=words[i+1];
+    const apos=guessPOS(a),bpos=guessPOS(b);
+    if((apos==="adj"&&bpos==="noun")||(apos==="noun"&&bpos==="noun"))phrases.push(`${a} ${b}`);
+  }
+  return phrases;
+}
+function weightedUnique(items,weight=1){
+  const freq=new Map();
+  for(const it of items)freq.set(it,(freq.get(it)||0)+1*weight);
+  const out=[];
+  for(const [w,f]of freq){
+    const k=Math.max(1,Math.floor(Math.sqrt(f)));
+    for(let i=0;i<k;i++)out.push(w);
+  }
+  return out;
+}
+
+/* ---------- Build buckets per source ---------- */
+function buildBucketsFromText(text,allowPhrases=true){
+  const nouns=[],verbs=[],adjs=[],phrases=[];
+  const words=tokenize(text||"");
+  if(allowPhrases)phrases.push(...extractPhrases(words));
+  for(const w of words){
+    const pos=guessPOS(w);
+    if(pos==="noun")nouns.push(w);
+    else if(pos==="verb")verbs.push(w);
+    else if(pos==="adj")adjs.push(w);
+  }
+  return {nouns,verbs,adjs,phrases};
+}
+
+/* ---------- Merge with POS routing (multi-source) ---------- */
+function mergeBuckets(sources,allowPhrases=true){
+  const merged={noun:[],verb:[],adj:[],phrase:[],det:[...DETERMINERS],prep:[...PREPOSITIONS],conj:[...CONJUNCTIONS],pron:[...PRONOUNS]};
+  for(const src of sources){
+    const wt=Math.max(0,Number(src.weight)||0);
+    if(!src.text?.trim()||wt===0)continue;
+    const posSel=src.pos||{noun:true,verb:true,adj:true,phrase:true};
+    const b=buildBucketsFromText(src.text,allowPhrases && posSel.phrase);
+    if(posSel.noun)  merged.noun .push(...weightedUnique(b.nouns.filter(w=>!STOPWORDS.has(w)),wt));
+    if(posSel.verb)  merged.verb .push(...weightedUnique(b.verbs.filter(w=>!STOPWORDS.has(w)),wt));
+    if(posSel.adj)   merged.adj  .push(...weightedUnique(b.adjs .filter(w=>!STOPWORDS.has(w)),wt));
+    if(posSel.phrase)merged.phrase.push(...weightedUnique(b.phrases,wt));
+  }
+  // Fallbacks
+  if(merged.verb.length===0) merged.verb=["fall","break","drift","burn","call","taste","echo","dream","shiver","whisper"];
+  if(merged.adj.length===0)  merged.adj =["electric","strange","hollow","neon","velvet","plastic","haunted","broken","divine"];
+  if(merged.noun.length===0) merged.noun=["shadow","city","angel","radio","mirror","fever","machine","ghost","station","salt"];
+  return merged;
+}
+
+/* ---------- Templates & generation ---------- */
+const TEMPLATES=[
+  "det adj noun verb det noun",
+  "pron verb det adj noun",
+  "det noun verb prep det noun",
+  "det adj noun verb prep det adj noun",
+  "pron verb prep det noun",
+  "det phrase verb det noun",
+  "det adj phrase verb prep det noun",
+  "adj noun conj adj noun",
+  "noun verb, adj noun",
+  "phrase, det noun verb",
+  "det noun verb prep det adj noun conj det noun",
+];
+
+function createPicker(buckets,rng){
+  const fallback=["echo","shadow","machine","city"];
+  return function pick(key){
+    const arr=buckets[key]||[];
+    const pool=arr.length?arr:fallback;
+    const i=Math.floor(rng()*pool.length);
+    return pool[i];
+  };
+}
+function realizeToken(token,buckets,pick){
+  if(token==="det"){return pick("det");}
+  if(token==="phrase"){
+    if(buckets.phrase&&buckets.phrase.length)return pick("phrase");
+    return `${pick("adj")} ${pick("noun")}`;
+  }
+  if(["noun","verb","adj","prep","conj","pron"].includes(token))return pick(token);
+  return token;
+}
+function fixArticles(words){
+  for(let i=0;i<words.length-1;i++){
+    if(words[i]==="a"){
+      const nxt=words[i+1]||"";
+      words[i]=/^[aeiou]/.test(nxt)?"an":"a";
+    }else if(words[i]==="an"){
+      const nxt=words[i+1]||"";
+      words[i]=/^[^aeiou]/.test(nxt)?"a":"an";
+    }
+  }
+  return words;
+}
+function punctuate(s,capFirst=true){
+  s=s.trim(); if(!s) return s;
+  if(capFirst) s=s[0].toUpperCase()+s.slice(1);
+  if(!PUNCT_END.includes(s[s.length-1])) s+=".";
+  return s;
+}
+function pickTemplate(temperature,rng){
+  const u=rng();
+  const idx=Math.floor(TEMPLATES.length*Math.pow(u,1/temperature));
+  return TEMPLATES[Math.min(idx,TEMPLATES.length-1)];
+}
+function generateLine(buckets,rng,temperature=1.0,capFirst=true){
+  const pick=createPicker(buckets,rng);
+  const tmpl=pickTemplate(temperature,rng);
+  const parts=tmpl.split(/\s+/);
+  const raw=[];
+  for(const tok of parts){
+    if(tok.endsWith(",")){
+      raw.push(realizeToken(tok.slice(0,-1),buckets,pick));
+      raw.push(",");
+    }else{
+      raw.push(realizeToken(tok,buckets,pick));
+    }
+  }
+  fixArticles(raw);
+  let line=raw.join(" ").replace(/\s+,/g,",");
+  return punctuate(line,capFirst);
+}
+function verbasize(sources,opts={lines:16,seed:null,temperature:1.0,allowPhrases:true,capFirst:true}){
+  const {lines,seed,temperature,allowPhrases,capFirst}=opts;
+  const buckets=mergeBuckets(sources,allowPhrases);
+  let rng=Math.random;
+  if(seed!==null&&seed!==undefined&&seed!==""){
+    const s=typeof seed==="number"?seed>>>0:strToSeed(String(seed));
+    rng=mulberry32(s);
+  }
+  const out=[];
+  const n=Math.max(1,Math.min(200,lines|0));
+  const t=Math.max(0.5,Math.min(2.0,Number(temperature)||1.0));
+  for(let i=0;i<n;i++) out.push(generateLine(buckets,rng,t,!!capFirst));
+  return out;
+}
+
+/* ---------- UI: multi-source with POS routing ---------- */
+const $=sel=>document.querySelector(sel);
+const sourcesEl=$("#sources");
+const linesEl=$("#lines");
+const seedEl=$("#seed");
+const tempEl=$("#temp");
+const phrasesEl=$("#phrases");
+const capEl=$("#capitalize");
+const outLinesEl=$("#outLines");
+const outBlockEl=$("#outBlock");
+
+let nextId=1;
+const sourcesState=new Map();
+
+function addSource(prefill){
+  const id=nextId++;
+  const root=document.createElement("div");
+  root.className="src";
+  root.innerHTML=`
+    <div class="src-head">
+        <input type="text" placeholder="Title (optional)" class="title" aria-label="Source title" />
+        <input type="file" accept=".txt,.md,.rtf,.csv,.json,.log" class="file" aria-label="Upload text file" />
+        <button class="danger remove" aria-label="Remove this source">Remove</button>
+    </div>
+      <textarea class="text" spellcheck="false" placeholder="Paste text or upload a file…" aria-label="Source text"></textarea>
+    <div class="row">
+      <label class="pill">Weight
+          <input type="range" min="0" max="5" step="0.1" class="weight" value="1" aria-label="Weight slider" />
+        <span class="wval">1.0</span>
+      </label>
+        <div class="pos" role="group" aria-label="Parts of speech for this source">
+        <label><input type="checkbox" class="pos-noun" checked /> Nouns</label>
+        <label><input type="checkbox" class="pos-verb" checked /> Verbs</label>
+        <label><input type="checkbox" class="pos-adj" checked /> Adjectives</label>
+        <label><input type="checkbox" class="pos-phrase" checked /> Phrases</label>
+      </div>
+        <button class="pill only-n" aria-label="Only nouns for this source">Only Nouns</button>
+        <button class="pill only-v" aria-label="Only verbs for this source">Only Verbs</button>
+        <button class="pill all-pos" aria-label="Use all parts of speech for this source">All POS</button>
+    </div>
+  `;
+  const titleEl=root.querySelector(".title");
+  const textEl=root.querySelector(".text");
+  const weightEl=root.querySelector(".weight");
+  const wvalEl=root.querySelector(".wval");
+  const fileEl=root.querySelector(".file");
+  const removeBtn=root.querySelector(".remove");
+  const posN=root.querySelector(".pos-noun");
+  const posV=root.querySelector(".pos-verb");
+  const posA=root.querySelector(".pos-adj");
+  const posP=root.querySelector(".pos-phrase");
+  const onlyNBtn=root.querySelector(".only-n");
+  const onlyVBtn=root.querySelector(".only-v");
+  const allBtn=root.querySelector(".all-pos");
+
+  if(prefill?.title) titleEl.value=prefill.title;
+  if(prefill?.text) textEl.value=prefill.text;
+  if(typeof prefill?.weight==="number"){ weightEl.value=String(prefill.weight); wvalEl.textContent=String(prefill.weight.toFixed(1)); }
+
+  weightEl.addEventListener("input",()=>{ wvalEl.textContent=Number(weightEl.value).toFixed(1); });
+  fileEl.addEventListener("change", async (ev)=>{
+    const f=ev.target.files?.[0];
+    if(!f) return;
+    try{
+      const txt=await f.text();
+      if(textEl.value.trim()) textEl.value += "\n\n";
+      textEl.value += txt;
+    }catch(e){ alert("Could not read file."); }
+  });
+  removeBtn.addEventListener("click",()=>{ sourcesState.delete(id); root.remove(); });
+
+  onlyNBtn.addEventListener("click",()=>{ posN.checked=true; posV.checked=false; posA.checked=false; posP.checked=false; });
+  onlyVBtn.addEventListener("click",()=>{ posN.checked=false; posV.checked=true; posA.checked=false; posP.checked=false; });
+  allBtn.addEventListener("click",()=>{ posN.checked=posV.checked=posA.checked=posP.checked=true; });
+
+  sourcesState.set(id,{titleEl,textEl,weightEl,fileEl,posN,posV,posA,posP,root});
+  sourcesEl.appendChild(root);
+}
+
+function readSources(){
+  const arr=[];
+  for(const s of sourcesState.values()){
+    arr.push({
+      title:s.titleEl.value.trim(),
+      text:s.textEl.value,
+      weight:Number(s.weightEl.value||1),
+      pos:{ noun:s.posN.checked, verb:s.posV.checked, adj:s.posA.checked, phrase:s.posP.checked }
+    });
+  }
+  return arr;
+}
+
+/* ---------- Rendering ---------- */
+function renderLines(lines){
+  const container=document.createElement("ol");
+  for(const line of lines){
+    const li=document.createElement("li");
+    const div=document.createElement("div");
+    div.className="line";
+    div.textContent=line;
+    li.appendChild(div);
+    container.appendChild(li);
+  }
+  outLinesEl.innerHTML="";
+  if(lines.length){ outLinesEl.appendChild(container); }
+  else { outLinesEl.innerHTML="<p class='muted'>– no lines –</p>"; }
+}
+function makeBlock(lines){
+  return lines.join(" ").replace(/\s+/g," ").trim();
+}
+function renderBlock(text){
+  outBlockEl.textContent = text || "(no block yet)";
+}
+
+/* ---------- Controls ---------- */
+document.querySelector("#addSource").addEventListener("click",()=>addSource());
+
+function generate(){
+  const src=readSources();
+  if(!src.some(s=>s.text.trim()&&(s.weight||0)>0&& (s.pos.noun||s.pos.verb||s.pos.adj||s.pos.phrase))){
+    renderLines([]); renderBlock(""); return;
+  }
+  const lines=verbasize(src,{
+    lines:Number(linesEl.value||50),
+    seed:(seedEl.value?.trim()||null),
+    temperature:Number(tempEl.value||1.0),
+    allowPhrases:phrasesEl.checked,
+    capFirst:document.querySelector("#capitalize").checked
+  });
+  renderLines(lines);
+  renderBlock(makeBlock(lines));
+}
+document.querySelector("#generate").addEventListener("click", generate);
+
+document.querySelector("#copyLines").addEventListener("click", async ()=>{
+  const txt=[...document.querySelectorAll("#outLines .line")].map(d=>d.textContent).join("\n");
+  if(!txt) return;
+  try { await navigator.clipboard.writeText(txt); alert("Copied lines!"); } catch { alert("Clipboard blocked — copy manually."); }
+});
+document.querySelector("#copyBlock").addEventListener("click", async ()=>{
+  const txt=document.querySelector("#outBlock").textContent.trim();
+  if(!txt || txt==="(no block yet)") return;
+  try { await navigator.clipboard.writeText(txt); alert("Copied block!"); } catch { alert("Clipboard blocked — copy manually."); }
+});
+
+/* ---------- Friendly defaults ---------- */
+addSource({
+  title:"A (verbs?)",
+  weight:1,
+  text:`He scribbles notes in the hotel margins; a neon bruise hums through the hallway.
+Newspapers whisper about the hollow city; the radio coughs static, velvet and cruel.
+He wants to break the mirror but the mirror already knows his name.`});
+addSource({
+  title:"B (nouns?)",
+  weight:1,
+  text:`Outside, a plastic angel is smoking by the station gates, selling futures by the hour.
+The midnight service disruption rattled the eastern line; witnesses heard a metallic whine.`});
+</script>
+</body>
+</html>
