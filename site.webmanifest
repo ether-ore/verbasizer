@@ -1,0 +1,65 @@
+{
+  "id": "/",
+  "name": "Verbasizer – Bowie-Style Cut-Up Text and Lyric Generator",
+  "short_name": "Verbasizer",
+  "description": "Generate Bowie-style cut-up lyrics and writing prompts with a modern Verbasizer: multi-source text, POS routing (verbs from A, nouns from B), and big-block output — all private, in your browser.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0e0f12",
+  "theme_color": "#0e0f12",
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "any",
+  "categories": ["productivity", "music", "tools", "creativity", "writing"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/og-image-verbasizer.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Verbasizer app"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New session",
+      "short_name": "New",
+      "url": "/#app",
+      "description": "Start a fresh cut-up session"
+    },
+    {
+      "name": "How to use",
+      "short_name": "How-to",
+      "url": "/#how-to",
+      "description": "Open the usage guide"
+    },
+    {
+      "name": "Features",
+      "short_name": "Features",
+      "url": "/#features",
+      "description": "See what’s included"
+    }
+  ],
+  "prefer_related_applications": false
+}
