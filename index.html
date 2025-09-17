@@ -137,11 +137,45 @@
 </script>
 
   <style>
+    /* Enhanced Remove and file input buttons */
+    .src-head .remove {
+      background: #e0e7ff;
+      color: #1e293b;
+      border-color: #3b82f6;
+      font-weight: 600;
+      padding: 7px 18px;
+      font-size: 15px;
+      box-shadow: 0 1px 6px rgba(59,130,246,0.10);
+      transition: background .18s, box-shadow .18s, border-color .18s;
+    }
+    .src-head .remove:hover {
+      background: #c7d2fe;
+      border-color: #2563eb;
+      color: #1e293b;
+      box-shadow: 0 2px 10px rgba(59,130,246,0.18);
+    }
+    .src-head .file {
+      background: #f1f5fa;
+      color: #1e293b;
+      border: 1px solid #3b82f6;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 15px;
+      padding: 7px 10px;
+      margin-right: 8px;
+      transition: background .18s, border-color .18s;
+    }
+    .src-head .file:hover {
+      background: #e0e7ff;
+      border-color: #2563eb;
+    }
     :root { --bg:#0e0f12; --panel:#171922; --ink:#e7e9ee; --muted:#a7acb8; --accent:#8bb4ff; --border:#2a2e3a; }
     * { box-sizing: border-box; }
     body { margin:0; font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--ink); background:linear-gradient(180deg,#0b0c10,#12141b 60%,#0b0c10); }
-    header { padding:22px 18px; border-bottom:1px solid var(--border); background:rgba(0,0,0,.3); position:sticky; top:0; backdrop-filter:saturate(160%) blur(6px); }
-    header h1 { margin:0; font-size:20px; letter-spacing:.2px; }
+  header { padding:22px 18px; border-bottom:1px solid var(--border); background:rgba(0,0,0,.3); position:sticky; top:0; backdrop-filter:saturate(160%) blur(6px); }
+  .header-flex { display:flex; align-items:center; gap:16px; }
+  .header-logo { height:96px; margin-right:12px; vertical-align:middle; }
+  header h1 { margin:0; font-size:20px; letter-spacing:.2px; }
     nav[aria-label="breadcrumbs"] { font-size:13px; color:var(--muted); padding:6px 18px 0; }
     nav a { color:var(--muted); text-decoration:none; }
     .header-actions { margin-left:auto; display:flex; gap:8px; }
@@ -172,8 +206,21 @@
     button:hover { border-color:#3b82f6; background:#111421; }
     .danger { border-color:#4b2a2a; }
     .danger:hover { border-color:#d16060; background:#2a1414; }
-    .primary { background:#1c253a; border-color:#365089; }
-    .primary:hover { background:#223052; border-color:#4a6bb0; }
+    .primary {
+      background: #3b82f6;
+      border-color: #3b82f6;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 8px 28px;
+      box-shadow: 0 2px 12px rgba(59,130,246,0.18);
+      transition: background .18s, box-shadow .18s, border-color .18s;
+    }
+    .primary:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+      box-shadow: 0 4px 18px rgba(59,130,246,0.28);
+    }
 
     textarea, input[type="number"], input[type="text"] { font:inherit; outline:none; transition:border .15s ease; }
     textarea:focus, input:focus { border-color:#3b82f6; }
@@ -204,8 +251,10 @@
 </head>
 <body>
   <header>
-    <img src="images/verbasizer1.png" alt="Verbasizer Logo" style="height:96px;vertical-align:middle;margin-right:12px;">
-    <h1>Verbasizer – Bowie-Style Cut-Up Text and Lyric Generator</h1>
+    <div class="header-flex">
+      <img src="images/verbasizer1.png" alt="Verbasizer Logo" class="header-logo">
+      <h1>Verbasizer – Bowie-Style Cut-Up Text and Lyric Generator</h1>
+    </div>
     <nav class="toc" aria-label="On-page navigation">
       <a href="#app">App</a> · <a href="#what-is">What this is</a> · <a href="#how-to">How to use</a> · <a href="#features">Features</a> · <a href="#privacy">Privacy</a> · <a href="#faq">FAQ</a> · <a href="#about">About</a>
     </nav>
@@ -226,14 +275,14 @@
 
           <div class="row3" aria-label="Generation parameters">
             <label class="pill" for="lines">Lines
-            <input type="number" id="lines" min="1" max="200" value="16" />
-          </label>
+              <input type="number" id="lines" min="1" max="2000" value="20" />
+            </label>
             <label class="pill" for="seed">Seed
-            <input type="text" id="seed" placeholder="(optional)" />
-          </label>
+              <input type="text" id="seed" placeholder="(optional)" />
+            </label>
             <label class="pill" for="temp">Temperature (0.5–2.0)
-            <input type="number" id="temp" step="0.1" min="0.5" max="2.0" value="1.0" />
-          </label>
+              <input type="number" id="temp" step="0.1" min="0.5" max="2.0" value="1.0" />
+            </label>
         </div>
 
         <div class="controls">
@@ -297,6 +346,8 @@
         <p><strong>Is it private?</strong> Yes. No servers, no tracking — your text stays on your device.</p>
         <p><strong>What browsers are supported?</strong> Any modern browser with JavaScript and Clipboard API support. If clipboard access is blocked, use the Download buttons.</p>
         <p><strong>Can I force stricter grammar?</strong> You can lower temperature or I can add a stricter template mode on request.</p>
+        <p><strong>What does Seed do?</strong> Seed lets you get repeatable results. Enter any word or number; the same seed will always produce the same cut-up output. Leave blank for random.</p>
+        <p><strong>What does Temperature do?</strong> Temperature controls randomness. Lower values (0.5) make output more predictable; higher values (2.0) make it more surprising and varied.</p>
       </section>
       
       <section id="about">
@@ -344,6 +395,7 @@
   </noscript>
 
   <script defer>
+// ...existing code...
 /* ---------- Seedable RNG ---------- */
 function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
 function strToSeed(str){if(!str)return null;let h=2166136261>>>0;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
@@ -506,7 +558,7 @@ function verbasize(sources,opts={lines:16,seed:null,temperature:1.0,allowPhrases
     rng=mulberry32(s);
   }
   const out=[];
-  const n=Math.max(1,Math.min(200,lines|0));
+  const n=Math.max(1,Math.min(2000,lines|0));
   const t=Math.max(0.5,Math.min(2.0,Number(temperature)||1.0));
   for(let i=0;i<n;i++) out.push(generateLine(buckets,rng,t,!!capFirst));
   return out;
